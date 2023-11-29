@@ -2,12 +2,28 @@ import Layout from "@/components/Layout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppProps) {
+import type { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
+
+type NextPageWithLayout = NextPage & {
+  Layout?: (page: ReactElement) => ReactNode;
+};
+interface EmptyLayoutProps {
+  children: NextPageWithLayout;
+}
+
+export default function App({
+  Component,
+  pageProps,
+}: AppProps & { Component: NextPageWithLayout }) {
+  const EmptyLayout = ({ children }: EmptyLayoutProps) => <>{children}</>;
+  const SubLayout = Component.Layout || EmptyLayout;
+
   return (
-    <div>
-      <Layout>
+    <Layout>
+      <SubLayout>
         <Component {...pageProps} />
-      </Layout>
-    </div>
+      </SubLayout>
+    </Layout>
   );
 }
