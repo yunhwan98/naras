@@ -4,7 +4,7 @@ import style from "./SubLayout.module.css";
 interface SubLayoutProps {
   children: JSX.Element;
 }
-function SubLayout({ children }: SubLayoutProps) {
+function SubLayout({ children }: any) {
   return (
     <div className="SubLayout">
       <div>{children}</div>
