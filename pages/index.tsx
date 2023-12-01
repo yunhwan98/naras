@@ -1,35 +1,26 @@
+import { fetchCountries } from "@/api";
+import CountryList from "@/components/CountryList";
+import Searchbar from "@/components/Searchbar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Home() {
-  const code = "KOR";
-  const router = useRouter();
-
-  const onClickButton = () => {
-    //router를 이용한 이동
-    router.push("/search");
-  };
-
+export default function Home({ countries }: any) {
   return (
-    <div>
-      Home page
-      <div>
-        <button onClick={onClickButton}>Search 페이지로 이동</button>
-      </div>
-      <div>
-        <Link href={"/search"}>Search Page 이동</Link>
-      </div>
-      <div>
-        {/* <Link href={`/country/${code}`}>{code} 페이지로 이동</Link> */}
-        <Link
-          href={{
-            pathname: "/country/[code]",
-            query: { code: code },
-          }}
-        >
-          {code} 페이지로 이동
-        </Link>
-      </div>
-    </div>
+    <>
+      <Searchbar />
+      <CountryList countries={countries} />
+    </>
   );
 }
+
+export const getStaticProps = async () => {
+  const countries = await fetchCountries();
+  console.log("countries 데이터 불러옴");
+
+  return {
+    //props가 꼭 존재해야하고, 객체여야 함
+    props: {
+      countries,
+    },
+  };
+};

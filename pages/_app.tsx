@@ -17,7 +17,7 @@ export default function App({
   pageProps,
 }: AppProps & { Component: NextPageWithLayout }) {
   const EmptyLayout = ({ children }: EmptyLayoutProps) => <>{children}</>;
-  const SubLayout = Component.Layout || EmptyLayout;
+  const SubLayout: any = Component.Layout || EmptyLayout;
 
   return (
     <Layout>
