@@ -1,7 +1,10 @@
 import { fetchCountry } from "@/api";
 import SubLayout from "@/components/SubLayout";
 import { useRouter } from "next/router";
+import style from "./[code].module.css";
 import React from "react";
+import Image from "next/image";
+import { count } from "console";
 
 function Country({ country }: any) {
   const router = useRouter();
@@ -17,8 +20,36 @@ function Country({ country }: any) {
     return <div>존재하지 않는 국가입니다.</div>;
   }
   return (
-    <div>
-      {country.commonName} {country.officialName}
+    <div className={style.container}>
+      <div className={style.header}>
+        <div className={style.commonName}>
+          {country.flagEmoji}&nbsp;{country.commonName}
+        </div>
+        <div className={style.officialName}>{country.officialName}</div>
+      </div>
+
+      <div className={style.flag_img}>
+        {/* <img src={country.flagImg} /> */}
+        <Image alt="country_img" src={country.flagImg} fill />
+      </div>
+
+      <div className={style.body}>
+        <div>
+          <b>코드 :</b>&nbsp;{country.code}
+        </div>
+        <div>
+          <b>수도 :</b>&nbsp;{country.capital.join(", ")}
+        </div>
+        <div>
+          <b>지역 :</b>&nbsp;{country.region}
+        </div>
+        <div>
+          <b>지도 :</b>&nbsp;
+          <a target="_blank" href={country.googleMapURL}>
+            {country.googleMapURL}
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
