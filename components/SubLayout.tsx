@@ -6,10 +6,10 @@ interface SubLayoutProps {
 }
 function SubLayout({ children }: any) {
   return (
-    <div className="SubLayout">
-      <div>{children}</div>
+    <>
+      {children}
       <footer className={style.footer}>@yunhwan</footer>
-    </div>
+    </>
   );
 }
 

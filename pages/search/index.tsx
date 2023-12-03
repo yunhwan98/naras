@@ -1,4 +1,6 @@
 import { fetchSearchResults } from "@/api";
+import CountryList from "@/components/CountryList";
+import Searchbar from "@/components/Searchbar";
 import SubLayout from "@/components/SubLayout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -23,11 +25,10 @@ function Search() {
   }, [q]);
 
   return (
-    <div>
-      {countries.map((country: any) => (
-        <div key={country.code}>{country.commonName}</div>
-      ))}
-    </div>
+    <>
+      <Searchbar q={q} />
+      <CountryList countries={countries} />
+    </>
   );
 }
 
